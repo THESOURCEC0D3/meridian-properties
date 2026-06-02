@@ -20,7 +20,7 @@ export default function HeroSection() {
           <div className="inline-flex items-center gap-2 bg-blue-600/20 border border-blue-500/30 rounded-full px-4 py-2 mb-6">
             <CheckCircle className="w-4 h-4 text-blue-400" />
             <span className="text-sm text-blue-300 font-medium">
-              CAC Registered · NIESV Affiliated · Verified Titles
+              Verified Titles · Transparent Pricing · Local Expertise
             </span>
           </div>
 
@@ -46,7 +46,7 @@ export default function HeroSection() {
               </Button>
             </Link>
             <WhatsAppButton
-              phone="2348012345678"
+              phone="2340000000000"
               message="Hello, I would like to find a property in Port Harcourt. Can you help me?"
               label="Talk to an Agent"
               size="lg"

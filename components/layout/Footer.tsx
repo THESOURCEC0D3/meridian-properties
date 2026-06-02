@@ -42,12 +42,11 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-slate-400 text-sm leading-relaxed mb-6">
-              Port Harcourt&apos;s most trusted property agency. We connect buyers,
+              Port Harcourt&apos;s trusted property agency. We connect buyers,
               tenants, and investors with verified properties across Rivers State.
-              CAC Registered. NIESV Affiliated.
             </p>
             <WhatsAppButton
-              phone="2348012345678"
+              phone="2340000000000"
               message="Hello, I would like to enquire about a property at Meridian Properties."
               label="Chat With Us"
               size="sm"
@@ -108,21 +107,21 @@ export default function Footer() {
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-blue-400 shrink-0" />
                 <a
-                  href="tel:+2348012345678"
+                  href="tel:+2340000000000"
                   className="text-slate-400 text-sm hover:text-white transition-colors"
                 >
-                  0801 234 5678
+                  0800 000 0000
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <MessageCircle className="w-4 h-4 text-green-400 shrink-0" />
                 <a
-                  href="https://wa.me/2348012345678"
+                  href="https://wa.me/2340000000000"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-slate-400 text-sm hover:text-white transition-colors"
                 >
-                  WhatsApp: 0801 234 5678
+                  WhatsApp: 0800 000 0000
                 </a>
               </li>
               <li className="flex items-center gap-3">
@@ -138,16 +137,16 @@ export default function Footer() {
 
             {/* Trust Badges */}
             <div className="mt-6 pt-6 border-t border-slate-700">
-              <p className="text-xs text-slate-500 mb-2">Registered & Verified</p>
+              <p className="text-xs text-slate-500 mb-2">Verified &amp; Trusted</p>
               <div className="flex flex-col gap-1">
                 <span className="text-xs text-slate-400">
-                  CAC Registration: RC-1087432
+                  Verified title documents
                 </span>
                 <span className="text-xs text-slate-400">
-                  NIESV Affiliated Member
+                  Transparent, all-in pricing
                 </span>
                 <span className="text-xs text-slate-400">
-                  ESVARBON Registered
+                  Honest local guidance
                 </span>
               </div>
             </div>

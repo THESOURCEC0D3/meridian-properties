@@ -12,12 +12,12 @@ const comparisons = [
     others: false,
   },
   {
-    point: "Named agent with direct WhatsApp on every property",
+    point: "Dedicated local agent with direct WhatsApp on every property",
     meridian: true,
     others: false,
   },
   {
-    point: "CAC registered business with verifiable credentials",
+    point: "Transparent, no-hidden-fee transactions",
     meridian: true,
     others: false,
   },

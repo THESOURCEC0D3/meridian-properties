@@ -124,7 +124,7 @@ export default function PropertyCard({ property }: PropertyCardProps) {
             </Button>
           </Link>
           <WhatsAppButton
-            phone={agent?.whatsapp ?? "2348012345678"}
+            phone={agent?.whatsapp ?? "2340000000000"}
             message={whatsappMessage}
             label="Enquire"
             size="sm"

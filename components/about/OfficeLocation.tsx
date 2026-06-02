@@ -10,7 +10,7 @@ const officeDetails = [
   {
     icon: Phone,
     label: "Phone",
-    value: "0801 234 5678",
+    value: "0800 000 0000",
   },
   {
     icon: Mail,
@@ -85,7 +85,7 @@ export default function OfficeLocation() {
                   during office hours.
                 </p>
                 <WhatsAppButton
-                  phone="2348012345678"
+                  phone="2340000000000"
                   message="Hello, I would like to visit your office or speak with an agent. When is a good time?"
                   label="WhatsApp Our Office"
                   className="w-full"
@@ -95,18 +95,15 @@ export default function OfficeLocation() {
 
             {/* Trust Footer */}
             <div className="bg-blue-600 rounded-2xl p-6 text-white">
-              <h3 className="font-bold text-lg mb-2">
-                Verified Business Credentials
-              </h3>
+              <h3 className="font-bold text-lg mb-2">Verified &amp; Trusted</h3>
               <p className="text-blue-200 text-sm mb-4">
-                You can verify our registration status independently.
+                What every Meridian client can count on.
               </p>
               <div className="flex flex-col gap-2">
                 {[
-                  "CAC Registration: RC-1087432",
-                  "NIESV Affiliated Member",
-                  "ESVARBON Registered",
-                  "Lagos State LASRERA Compliant",
+                  "Verified title documents",
+                  "Transparent, all-in pricing",
+                  "Honest local guidance",
                 ].map((credential) => (
                   <div key={credential} className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-blue-300 shrink-0" />

@@ -31,10 +31,10 @@ export default function AboutHero() {
 
           <div className="flex flex-wrap gap-4">
             {[
-              "CAC Registered — RC-1087432",
-              "NIESV Affiliated",
-              "ESVARBON Registered",
-              "8+ Years Experience",
+              "Verified Titles Only",
+              "Transparent Pricing",
+              "Diaspora-Friendly",
+              "Local PH Expertise",
             ].map((badge) => (
               <div
                 key={badge}

@@ -15,9 +15,9 @@ const reasons = [
   },
   {
     icon: "👤",
-    title: "Named, Verified Agents",
+    title: "Direct Local Agents",
     description:
-      "Every property is handled by a named, photographed agent with a direct phone number and WhatsApp. No anonymous 'Sales Team.'",
+      "Every property is handled by a dedicated Meridian sales desk you can reach directly by phone and WhatsApp — real people with real local knowledge.",
   },
   {
     icon: "🌍",
@@ -28,10 +28,10 @@ const reasons = [
 ];
 
 const trustSignals = [
-  "CAC Registered — RC-1087432",
-  "NIESV Affiliated Member",
-  "ESVARBON Registered",
   "Verified Titles Only",
+  "Transparent Pricing",
+  "Local PH Expertise",
+  "Diaspora-Friendly",
 ];
 
 export default function WhyChooseUs() {
@@ -47,8 +47,8 @@ export default function WhyChooseUs() {
             Port Harcourt&apos;s Most Trusted Property Agency
           </h2>
           <p className="text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            In a market where fraud costs Nigeria over ₦100 billion yearly, we
-            built our entire business on verification, transparency, and trust.
+            In a market where property fraud is a constant risk, we built our
+            entire business on verification, transparency, and trust.
           </p>
         </div>
 
@@ -73,11 +73,9 @@ export default function WhyChooseUs() {
         {/* Trust Signals Banner */}
         <div className="bg-blue-600 rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="text-white text-center md:text-left">
-            <h3 className="text-xl font-bold mb-1">
-              Registered, Verified &amp; Trusted
-            </h3>
+            <h3 className="text-xl font-bold mb-1">Verified &amp; Trusted</h3>
             <p className="text-blue-200 text-sm">
-              Operating with full legal compliance across Rivers State
+              Honest, transparent property dealings across Rivers State
             </p>
           </div>
           <div className="flex flex-wrap justify-center gap-3">

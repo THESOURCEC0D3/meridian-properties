@@ -6,7 +6,7 @@ import ContactInfo from "@/components/contact/ContactInfo";
 export const metadata: Metadata = {
   title: "Contact Us — Meridian Properties NG",
   description:
-    "Get in touch with Meridian Properties NG. Talk to an agent about buying, renting, or investing in Port Harcourt real estate. CAC Registered. NIESV Affiliated.",
+    "Get in touch with Meridian Properties NG. Talk to an agent about buying, renting, or investing in Port Harcourt real estate.",
 };
 
 export default function ContactPage() {

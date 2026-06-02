@@ -40,7 +40,7 @@ export default function CTABanner() {
               </Button>
             </Link>
             <WhatsAppButton
-              phone="2348012345678"
+              phone="2340000000000"
               message="Hello, I am ready to find a property in Port Harcourt. Can an agent assist me?"
               label="Talk to an Agent Now"
               size="lg"
@@ -56,10 +56,10 @@ export default function CTABanner() {
             <p className="text-slate-400 text-sm">
               Prefer to call?{" "}
               <a
-                href="tel:+2348012345678"
+                href="tel:+2340000000000"
                 className="text-white font-semibold hover:text-blue-400 transition-colors"
               >
-                0801 234 5678
+                0800 000 0000
               </a>
             </p>
           </div>

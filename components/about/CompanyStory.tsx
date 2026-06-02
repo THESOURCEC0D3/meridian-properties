@@ -4,13 +4,13 @@ export default function CompanyStory() {
       year: "2016",
       title: "Founded in GRA Phase 2",
       description:
-        "Meridian Properties was established by a team of experienced estate surveyors determined to bring transparency to Port Harcourt's property market.",
+        "Meridian Properties was established by a team of estate professionals determined to bring transparency to Port Harcourt's property market.",
     },
     {
       year: "2018",
-      title: "NIESV Affiliation",
+      title: "Full Cost Transparency",
       description:
-        "Became an affiliated member of the Nigerian Institution of Estate Surveyors and Valuers, cementing our commitment to professional standards.",
+        "Made upfront move-in cost breakdowns — rent, agency, legal, and caution fees — standard on every rental, shown before any viewing.",
     },
     {
       year: "2020",
@@ -20,9 +20,9 @@ export default function CompanyStory() {
     },
     {
       year: "2023",
-      title: "200+ Successful Transactions",
+      title: "A Referral-Led Client Base",
       description:
-        "Crossed 200 successfully closed transactions — sales, lettings, and short-let management — across GRA, Woji, Eliozu, Ada George and Trans-Amadi.",
+        "Grew a client base that refers us to family, colleagues, and diaspora friends — across GRA, Woji, Eliozu, Ada George and Trans-Amadi.",
     },
   ];
 
@@ -53,13 +53,13 @@ export default function CompanyStory() {
                 caution deposit — before they ever visit a property.
               </p>
               <p>
-                Eight years later, that belief has driven over 200 successful
-                transactions and a client base that refers us to family members,
-                colleagues, and diaspora friends without hesitation.
+                Years later, that belief drives a client base that refers us to
+                family members, colleagues, and diaspora friends without
+                hesitation.
               </p>
               <p>
-                We are not the biggest agency in Port Harcourt. We are the most
-                honest one — and in this market, that is what keeps clients
+                We are not the biggest agency in Port Harcourt. We aim to be the
+                most honest one — and in this market, that is what keeps clients
                 coming back.
               </p>
             </div>

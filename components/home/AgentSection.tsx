@@ -12,12 +12,11 @@ export default function AgentsSection() {
             Real People, Real Results
           </p>
           <h2 className="text-3xl font-bold text-slate-900 mb-4">
-            Meet Our Agents
+            Our Local Sales Teams
           </h2>
           <p className="text-slate-600 max-w-xl mx-auto leading-relaxed">
-            Every property is handled by a named, experienced agent — not a
-            faceless inbox. Speak directly with the person managing your
-            listing.
+            Every property is handled by a dedicated local sales desk — not a
+            faceless inbox. Speak directly with the team managing your listing.
           </p>
         </div>
 

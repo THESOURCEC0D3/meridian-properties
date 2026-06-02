@@ -50,7 +50,7 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center gap-3">
             <WhatsAppButton
-              phone="2348012345678"
+              phone="2340000000000"
               message="Hello, I would like to enquire about a property at Meridian Properties."
               label="WhatsApp Us"
               size="sm"
@@ -87,7 +87,7 @@ export default function Navbar() {
             </Link>
           ))}
           <WhatsAppButton
-            phone="2348012345678"
+            phone="2340000000000"
             message="Hello, I would like to enquire about a property at Meridian Properties."
             label="WhatsApp Us"
             size="sm"

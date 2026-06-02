@@ -8,7 +8,7 @@ import OfficeLocation from "@/components/about/OfficeLocation";
 export const metadata: Metadata = {
   title: "About Us — Meridian Properties NG",
   description:
-    "Learn about Meridian Properties NG — Port Harcourt's most trusted property agency. CAC Registered, NIESV Affiliated, and committed to verified, transparent property transactions across Rivers State.",
+    "Learn about Meridian Properties NG — a Port Harcourt property agency committed to verified, transparent property transactions across Rivers State.",
 };
 
 export default function AboutPage() {

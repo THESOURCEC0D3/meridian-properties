@@ -245,12 +245,12 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
               {/* CTA Buttons */}
               <div className="flex flex-col gap-3">
                 <WhatsAppButton
-                  phone={agent?.whatsapp ?? "2348012345678"}
+                  phone={agent?.whatsapp ?? "2340000000000"}
                   message={whatsappMessage}
                   label="WhatsApp Agent"
                   className="w-full"
                 />
-                <a href={`tel:+${agent?.phone ?? "2348012345678"}`}>
+                <a href={`tel:+${agent?.phone ?? "2340000000000"}`}>
                   <Button variant="outline" className="w-full gap-2">
                     <Phone className="w-4 h-4" />
                     Call Agent
@@ -292,9 +292,9 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
                 {[
                   "Verified title documents",
                   "Transparent pricing — no hidden fees",
-                  "Named agent with direct contact",
-                  "CAC Registered — RC-1087432",
-                  "NIESV Affiliated Member",
+                  "Direct contact with a local agent",
+                  "Honest guidance from start to finish",
+                  "Diaspora-friendly process",
                 ].map((signal) => (
                   <div key={signal} className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-blue-500 shrink-0" />

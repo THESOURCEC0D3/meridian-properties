@@ -17,14 +17,14 @@ const contactDetails = [
   {
     icon: Phone,
     label: "Phone",
-    value: "0801 234 5678",
-    href: "tel:+2348012345678",
+    value: "0800 000 0000",
+    href: "tel:+2340000000000",
   },
   {
     icon: MessageCircle,
     label: "WhatsApp",
-    value: "0801 234 5678",
-    href: "https://wa.me/2348012345678",
+    value: "0800 000 0000",
+    href: "https://wa.me/2340000000000",
   },
   {
     icon: Mail,
@@ -85,7 +85,7 @@ export default function ContactInfo() {
 
         <div className="mt-6 pt-6 border-t border-slate-100">
           <WhatsAppButton
-            phone="2348012345678"
+            phone="2340000000000"
             message="Hello, I would like to speak with an agent at Meridian Properties."
             label="WhatsApp Us Now"
             className="w-full"
@@ -118,20 +118,17 @@ export default function ContactInfo() {
         </div>
       </div>
 
-      {/* CAC Card */}
+      {/* Trust Card */}
       <div className="bg-slate-900 rounded-2xl p-6 text-white">
-        <h3 className="font-bold text-lg mb-1">
-          Verified Business
-        </h3>
+        <h3 className="font-bold text-lg mb-1">Verified &amp; Trusted</h3>
         <p className="text-slate-400 text-sm mb-4">
-          You can verify our registration independently at the Corporate Affairs
-          Commission.
+          Our promise on every listing — no shortcuts, no hidden costs.
         </p>
         <div className="flex flex-col gap-2">
           {[
-            "CAC Reg: RC-1087432",
-            "NIESV Affiliated",
-            "ESVARBON Registered",
+            "Verified title documents",
+            "Transparent, all-in pricing",
+            "Local Port Harcourt expertise",
           ].map((item) => (
             <div key={item} className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-slate-500 shrink-0" />

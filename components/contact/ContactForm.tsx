@@ -81,7 +81,7 @@ export default function ContactForm() {
     setTimeout(() => {
       setStatus("success");
       window.open(
-        `https://wa.me/2348012345678?text=${whatsappMessage}`,
+        `https://wa.me/2340000000000?text=${whatsappMessage}`,
         "_blank",
       );
     }, 1000);
@@ -113,7 +113,7 @@ export default function ContactForm() {
         </p>
         <p className="text-slate-500 text-sm mb-8">
           If WhatsApp did not open automatically, message us directly on{" "}
-          <span className="font-semibold text-slate-700">0801 234 5678</span>.
+          <span className="font-semibold text-slate-700">0800 000 0000</span>.
         </p>
         <Button onClick={handleReset} variant="outline">
           Send Another Enquiry
@@ -145,7 +145,7 @@ export default function ContactForm() {
             <Input
               id="name"
               name="name"
-              placeholder="e.g. Chukwuemeka Obi"
+              placeholder="Your full name"
               value={formData.name}
               onChange={handleInputChange}
               required
@@ -162,7 +162,7 @@ export default function ContactForm() {
               id="phone"
               name="phone"
               type="tel"
-              placeholder="e.g. 0801 234 5678"
+              placeholder="e.g. 0800 000 0000"
               value={formData.phone}
               onChange={handleInputChange}
               required
@@ -180,7 +180,7 @@ export default function ContactForm() {
             id="email"
             name="email"
             type="email"
-            placeholder="e.g. emeka@email.com"
+            placeholder="you@email.com"
             value={formData.email}
             onChange={handleInputChange}
           />

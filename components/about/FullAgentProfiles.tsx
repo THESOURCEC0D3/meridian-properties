@@ -11,12 +11,12 @@ export default function FullAgentProfiles() {
             The People Behind Meridian
           </p>
           <h2 className="text-3xl font-bold text-slate-900 mb-4">
-            Meet Our Agents
+            Our Local Sales Teams
           </h2>
           <p className="text-slate-600 max-w-xl mx-auto leading-relaxed">
-            Every property at Meridian is managed by a named, experienced agent.
-            No anonymous inboxes. No ghost numbers. Just real people you can
-            call, WhatsApp, and meet in person.
+            Every property is managed by a dedicated local sales desk you can
+            reach directly — by phone or WhatsApp. Real local people, not an
+            anonymous inbox.
           </p>
         </div>
 

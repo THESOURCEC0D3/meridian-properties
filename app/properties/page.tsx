@@ -5,7 +5,7 @@ import PropertiesClient from "@/components/properties/PropertiesClient";
 export const metadata: Metadata = {
   title: "All Properties — Meridian Properties NG",
   description:
-    "Browse verified properties for sale, rent, and short-let across Port Harcourt. GRA, Woji, Eliozu, Ada George and beyond. CAC Registered. NIESV Affiliated.",
+    "Browse verified properties for sale, rent, and short-let across Port Harcourt. GRA, Woji, Eliozu, Ada George and beyond.",
 };
 
 export default function PropertiesPage() {

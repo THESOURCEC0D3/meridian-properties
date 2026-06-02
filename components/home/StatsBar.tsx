@@ -1,10 +1,10 @@
-import { Home, Users, Award, Star } from "lucide-react";
+import { ShieldCheck, Wallet, MapPin, Handshake } from "lucide-react";
 
 const stats = [
-  { icon: Home, label: "Properties Listed", value: "500+" },
-  { icon: Users, label: "Happy Clients", value: "200+" },
-  { icon: Award, label: "Years Experience", value: "8+" },
-  { icon: Star, label: "5-Star Reviews", value: "150+" },
+  { icon: ShieldCheck, label: "Title documents checked", value: "Verified" },
+  { icon: Wallet, label: "Full move-in costs upfront", value: "Transparent" },
+  { icon: MapPin, label: "Port Harcourt expertise", value: "Local" },
+  { icon: Handshake, label: "Honest, no hidden fees", value: "Trusted" },
 ];
 
 export default function StatsBar() {

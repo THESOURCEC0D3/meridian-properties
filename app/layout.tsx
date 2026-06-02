@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title:
     "Meridian Properties NG — Port Harcourt's Most Trusted Property Agency",
   description:
-    "Find verified properties for sale, rent, and short-let in Port Harcourt. CAC Registered. NIESV Affiliated. Serving GRA, Woji, Eliozu, Ada George and beyond.",
+    "Find verified properties for sale, rent, and short-let in Port Harcourt. Verified titles, transparent pricing. Serving GRA, Woji, Eliozu, Ada George and beyond.",
 };
 
 export default function RootLayout({
