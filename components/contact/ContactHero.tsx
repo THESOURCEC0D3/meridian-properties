@@ -16,10 +16,10 @@ export default function ContactHero() {
           <p className="text-blue-400 font-medium text-sm uppercase tracking-wider mb-4">
             Get In Touch
           </p>
-          <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-4">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
             Talk to a Real Agent — Not an Inbox
           </h1>
-          <p className="text-slate-300 text-lg leading-relaxed">
+          <p className="text-lg md:text-xl text-slate-300 leading-relaxed">
             Every enquiry at Meridian Properties is handled by a named,
             experienced agent. Fill in the form and we will reach you within 2
             hours during office hours — or WhatsApp us now for an instant
