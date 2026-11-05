@@ -284,11 +284,25 @@ export default async function PropertyPage({ params }: PropertyPageProps) {
           </div>
 
           {/* 2 — Sidebar: price, CTAs, agent, trust. Right column on desktop,
-              spanning both rows so the sticky price card can track the whole
-              page; second in the flow on mobile, directly under the gallery. */}
-          <div className="order-2 lg:col-start-3 lg:row-start-1 lg:row-span-2 flex flex-col gap-6">
+              spanning both rows; second in the flow on mobile, directly under
+              the gallery.
+
+              The whole column is sticky, not just the price card. With only the
+              card sticky, the agent and trust cards kept scrolling and slid
+              underneath it — a sticky element paints above its unpositioned
+              siblings, so they overlapped. Moving as one unit, they can't.
+
+              lg:self-start — a grid item stretches to fill both rows by default,
+                and a sticky element as tall as its container has nowhere to
+                stick. self-start shrinks it to its content height.
+              max-h + overflow-y-auto — the column is taller than most laptop
+                screens, so it scrolls internally instead of hiding the bottom
+                cards off-screen. The height is the viewport minus the top-24
+                offset and 1.5rem of breathing room at the bottom. dvh rather
+                than vh so mobile browser toolbars don't miscalculate it. */}
+          <div className="order-2 lg:col-start-3 lg:row-start-1 lg:row-span-2 flex flex-col gap-6 lg:self-start lg:sticky lg:top-24 lg:max-h-[calc(100dvh-7.5rem)] lg:overflow-y-auto lg:[scrollbar-width:thin]">
             {/* Price Card */}
-            <div className="bg-white rounded-xl border border-slate-200 p-6 lg:sticky lg:top-24">
+            <div className="bg-white rounded-xl border border-slate-200 p-6">
               {/* Price */}
               <div className="mb-4 pb-4 border-b border-slate-100">
                 <p className="text-3xl font-bold text-slate-900">
