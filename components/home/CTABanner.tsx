@@ -2,11 +2,12 @@ import Link from "next/link";
 import { ArrowRight, Phone } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import WhatsAppButton from "@/components/shared/WhatsAppButton";
+import Reveal from "@/components/shared/Reveal";
 
 export default function CTABanner() {
   return (
     <section className="py-20 bg-slate-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Reveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="max-w-3xl mx-auto text-center">
 
@@ -29,20 +30,25 @@ export default function CTABanner() {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-10">
-            <Link href="/properties">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-slate-600 text-black hover:bg-slate-800 hover:text-white w-full sm:w-auto gap-2"
-              >
+            {/* Styled to match the hero's secondary button exactly. Previously
+                this was an outline button with black text while the hero's
+                equivalent was translucent-on-dark — the same action presented two
+                ways, which stops users learning what "primary" looks like. */}
+            <Button
+              asChild
+              size="lg"
+              variant="outline"
+              className="border-white/30 bg-white/10 text-white hover:bg-white/20 hover:text-white w-full sm:w-auto gap-2"
+            >
+              <Link href="/properties">
                 Browse All Properties
-                <ArrowRight className="w-4 h-4" />
-              </Button>
-            </Link>
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </Link>
+            </Button>
             <WhatsAppButton
               phone="2340000000000"
               message="Hello, I am ready to find a property in Port Harcourt. Can an agent assist me?"
-              label="Talk to an Agent Now"
+              label="WhatsApp an Agent"
               size="lg"
               className="w-full sm:w-auto"
             />
@@ -65,7 +71,7 @@ export default function CTABanner() {
           </div>
 
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

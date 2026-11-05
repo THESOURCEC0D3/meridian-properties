@@ -3,7 +3,10 @@ import { CheckCircle } from "lucide-react";
 
 export default function AboutHero() {
   return (
-    <section className="relative bg-slate-900 text-white py-16 md:py-24 min-h-screen flex items-center">
+    // Sized to its content rather than the viewport. A full-height hero is a
+    // framing device for a homepage; on an interior page it just delays the
+    // content the visitor clicked through for by a whole screen.
+    <section className="relative bg-slate-900 text-white py-16 md:py-24 flex items-center">
       <Image
         src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=1600"
         alt=""
@@ -13,7 +16,7 @@ export default function AboutHero() {
         className="object-cover object-center opacity-30"
       />
       <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-3xl">
+        <div className="max-w-3xl hero-enter">
           <p className="text-blue-400 font-medium text-sm uppercase tracking-wider mb-4">
             About Meridian Properties
           </p>

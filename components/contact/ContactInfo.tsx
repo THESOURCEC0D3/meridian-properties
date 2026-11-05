@@ -57,7 +57,7 @@ export default function ContactInfo() {
                 <detail.icon className="w-4 h-4 text-blue-600" />
               </div>
               <div>
-                <p className="text-xs text-slate-400 uppercase tracking-wider font-medium mb-0.5">
+                <p className="text-xs text-slate-600 uppercase tracking-wider font-medium mb-0.5">
                   {detail.label}
                 </p>
                 {detail.href ? (
@@ -87,7 +87,7 @@ export default function ContactInfo() {
           <WhatsAppButton
             phone="2340000000000"
             message="Hello, I would like to speak with an agent at Meridian Properties."
-            label="WhatsApp Us Now"
+            label="WhatsApp Us"
             className="w-full"
           />
         </div>
@@ -98,7 +98,7 @@ export default function ContactInfo() {
         <h3 className="font-bold text-lg mb-2">
           We Respond Fast
         </h3>
-        <p className="text-blue-200 text-sm leading-relaxed mb-4">
+        <p className="text-blue-50 text-sm leading-relaxed mb-4">
           WhatsApp enquiries are responded to within 30 minutes during office
           hours. Form submissions are routed directly to WhatsApp for the
           fastest possible response.

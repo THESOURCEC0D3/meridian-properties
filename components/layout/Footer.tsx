@@ -1,6 +1,14 @@
 import Link from "next/link";
-import { MapPin, Phone, Mail, MessageCircle } from "lucide-react";
+import {
+  Home,
+  MapPin,
+  Phone,
+  Mail,
+  MessageCircle,
+  BadgeCheck,
+} from "lucide-react";
 import WhatsAppButton from "@/components/shared/WhatsAppButton";
+import { formattedAddress, siteConfig } from "@/lib/config/site";
 
 const quickLinks = [
   { label: "Home", href: "/" },
@@ -30,7 +38,9 @@ export default function Footer() {
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <div className="bg-blue-600 p-1.5 rounded-md">
-                <MapPin className="w-5 h-5 text-white" />
+                {/* Same mark as the navbar — brand recognition depends on the
+                    logo being identical in every position, not merely similar. */}
+                <Home className="w-5 h-5 text-white" />
               </div>
               <div>
                 <p className="font-bold text-white text-sm leading-none">
@@ -46,9 +56,9 @@ export default function Footer() {
               tenants, and investors with verified properties across Rivers State.
             </p>
             <WhatsAppButton
-              phone="2340000000000"
+              phone={siteConfig.whatsapp}
               message="Hello, I would like to enquire about a property at Meridian Properties."
-              label="Chat With Us"
+              label="WhatsApp Us"
               size="sm"
             />
           </div>
@@ -99,56 +109,73 @@ export default function Footer() {
             <ul className="flex flex-col gap-4">
               <li className="flex items-start gap-3">
                 <MapPin className="w-4 h-4 text-blue-400 mt-0.5 shrink-0" />
-                <span className="text-slate-400 text-sm leading-relaxed">
-                  14 Tombia Street, GRA Phase 2,
-                  Port Harcourt, Rivers State
+                <span className="text-slate-300 text-sm leading-relaxed">
+                  {formattedAddress}
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone className="w-4 h-4 text-blue-400 shrink-0" />
                 <a
-                  href="tel:+2340000000000"
-                  className="text-slate-400 text-sm hover:text-white transition-colors"
+                  href={`tel:${siteConfig.phoneE164}`}
+                  className="text-slate-300 text-sm hover:text-white transition-colors"
                 >
-                  0800 000 0000
+                  {siteConfig.phoneDisplay}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <MessageCircle className="w-4 h-4 text-green-400 shrink-0" />
                 <a
-                  href="https://wa.me/2340000000000"
+                  href={`https://wa.me/${siteConfig.whatsapp}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-slate-400 text-sm hover:text-white transition-colors"
+                  className="text-slate-300 text-sm hover:text-white transition-colors"
                 >
-                  WhatsApp: 0800 000 0000
+                  WhatsApp: {siteConfig.phoneDisplay}
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail className="w-4 h-4 text-blue-400 shrink-0" />
                 <a
-                  href="mailto:info@meridianpropertiesng.com"
-                  className="text-slate-400 text-sm hover:text-white transition-colors"
+                  href={`mailto:${siteConfig.email}`}
+                  className="text-slate-300 text-sm hover:text-white transition-colors"
                 >
-                  info@meridianpropertiesng.com
+                  {siteConfig.email}
                 </a>
               </li>
             </ul>
 
-            {/* Trust Badges */}
+            {/* Registration and professional body membership. These replaced
+                three self-asserted claims ("Verified title documents",
+                "Transparent, all-in pricing", "Honest local guidance") that
+                repeated the positioning without evidencing it. A CAC number and
+                an NIESV membership are checkable; adjectives are not. */}
             <div className="mt-6 pt-6 border-t border-slate-700">
-              <p className="text-xs text-slate-500 mb-2">Verified &amp; Trusted</p>
-              <div className="flex flex-col gap-1">
-                <span className="text-xs text-slate-400">
-                  Verified title documents
-                </span>
-                <span className="text-xs text-slate-400">
-                  Transparent, all-in pricing
-                </span>
-                <span className="text-xs text-slate-400">
-                  Honest local guidance
-                </span>
-              </div>
+              <p className="text-xs text-slate-400 mb-2 font-medium uppercase tracking-wider">
+                Registered &amp; Regulated
+              </p>
+              <ul className="flex flex-col gap-1.5">
+                <li className="text-xs text-slate-300 flex items-start gap-1.5">
+                  <BadgeCheck
+                    className="w-3.5 h-3.5 text-green-400 shrink-0 mt-px"
+                    aria-hidden="true"
+                  />
+                  CAC {siteConfig.credentials.rcNumber}
+                </li>
+                <li className="text-xs text-slate-300 flex items-start gap-1.5">
+                  <BadgeCheck
+                    className="w-3.5 h-3.5 text-green-400 shrink-0 mt-px"
+                    aria-hidden="true"
+                  />
+                  {siteConfig.credentials.niesv}
+                </li>
+                <li className="text-xs text-slate-300 flex items-start gap-1.5">
+                  <BadgeCheck
+                    className="w-3.5 h-3.5 text-green-400 shrink-0 mt-px"
+                    aria-hidden="true"
+                  />
+                  {siteConfig.credentials.esvarbon}
+                </li>
+              </ul>
             </div>
           </div>
 
@@ -159,11 +186,9 @@ export default function Footer() {
       <div className="border-t border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-slate-500 text-xs">
-            © {currentYear} Meridian Properties NG. All rights reserved.
+            © {currentYear} {siteConfig.name}. All rights reserved.
           </p>
-          <p className="text-slate-500 text-xs">
-            14 Tombia Street, GRA Phase 2, Port Harcourt, Rivers State
-          </p>
+          <p className="text-slate-500 text-xs">{formattedAddress}</p>
         </div>
       </div>
 

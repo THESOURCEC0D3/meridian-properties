@@ -1,3 +1,4 @@
+import Reveal from "@/components/shared/Reveal";
 export default function CompanyStory() {
   const milestones = [
     {
@@ -28,7 +29,7 @@ export default function CompanyStory() {
 
   return (
     <section className="py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Reveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
           {/* Story Text */}
           <div>
@@ -84,7 +85,7 @@ export default function CompanyStory() {
 
                 {/* Content */}
                 <div className="pb-8">
-                  <p className="text-xs text-slate-400 mb-0.5">
+                  <p className="text-xs text-slate-600 mb-0.5">
                     {milestone.year}
                   </p>
                   <h3 className="font-semibold text-slate-900 mb-1">
@@ -98,7 +99,7 @@ export default function CompanyStory() {
             ))}
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

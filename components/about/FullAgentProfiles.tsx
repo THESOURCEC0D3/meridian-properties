@@ -1,11 +1,13 @@
-import { Phone } from "lucide-react";
+import { Phone, MapPin, BadgeCheck, Briefcase } from "lucide-react";
 import WhatsAppButton from "@/components/shared/WhatsAppButton";
+import { Button } from "@/components/ui/button";
 import { agents } from "@/lib/data/properties";
+import Reveal from "@/components/shared/Reveal";
 
 export default function FullAgentProfiles() {
   return (
     <section className="py-16 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Reveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <p className="text-blue-600 font-medium text-sm uppercase tracking-wider mb-2">
             The People Behind Meridian
@@ -30,9 +32,9 @@ export default function FullAgentProfiles() {
             >
               {/* Avatar */}
               <div className="shrink-0">
-                <div className="w-24 h-24 rounded-full bg-blue-100 border-2 border-blue-200 flex items-center justify-center">
-                  <span className="text-blue-600 font-bold text-3xl">
-                    {agent.name.charAt(0)}
+                <div className="w-24 h-24 rounded-full bg-blue-600 flex items-center justify-center">
+                  <span className="text-white font-bold text-3xl">
+                    {agent.initials}
                   </span>
                 </div>
               </div>
@@ -42,10 +44,26 @@ export default function FullAgentProfiles() {
                 <h3 className="text-xl font-bold text-slate-900 mb-0.5">
                   {agent.name}
                 </h3>
-                <p className="text-blue-600 font-medium mb-1">{agent.role}</p>
-                <p className="text-sm text-slate-500 mb-4">
-                  📍 Specialises in: {agent.specialisation}
-                </p>
+                <p className="text-blue-600 font-medium mb-2">{agent.role}</p>
+
+                <div className="flex flex-col gap-1 mb-4">
+                  <p className="text-sm text-slate-600 flex items-center gap-1.5">
+                    <MapPin className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    Specialises in: {agent.specialisation}
+                  </p>
+                  <p className="text-sm text-slate-600 flex items-center gap-1.5">
+                    <BadgeCheck
+                      className="w-4 h-4 text-green-600 shrink-0"
+                      aria-hidden="true"
+                    />
+                    {agent.credential}
+                  </p>
+                  <p className="text-sm text-slate-600 flex items-center gap-1.5">
+                    <Briefcase className="w-4 h-4 shrink-0" aria-hidden="true" />
+                    {agent.yearsExperience} years in Port Harcourt property
+                  </p>
+                </div>
+
                 <p className="text-slate-600 leading-relaxed mb-6">
                   {agent.bio}
                 </p>
@@ -54,22 +72,21 @@ export default function FullAgentProfiles() {
                 <div className="flex flex-wrap gap-3">
                   <WhatsAppButton
                     phone={agent.whatsapp}
-                    message={`Hello ${agent.name}, I found your profile on Meridian Properties and I would like to enquire about a property.`}
+                    message={`Hello ${agent.name.split(" ")[0]}, I found your profile on the Meridian Properties website and I would like to enquire about a property.`}
                     label={`WhatsApp ${agent.name.split(" ")[0]}`}
-                    size="sm"
                   />
-                  <a href={`tel:+${agent.phone}`}>
-                    <button className="flex items-center gap-2 border border-slate-300 text-slate-700 hover:bg-slate-100 transition-colors text-sm font-medium px-4 py-2 rounded-md">
-                      <Phone className="w-4 h-4" />
-                      Call {agent.name.split(" ")[0]}
-                    </button>
-                  </a>
+                  <Button asChild variant="outline">
+                    <a href={`tel:+${agent.phone}`}>
+                      <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
+                      {agent.phoneDisplay}
+                    </a>
+                  </Button>
                 </div>
               </div>
             </div>
           ))}
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

@@ -1,4 +1,5 @@
 import { CheckCircle, X } from "lucide-react";
+import Reveal from "@/components/shared/Reveal";
 
 const comparisons = [
   {
@@ -36,7 +37,7 @@ const comparisons = [
 export default function WhyTrustUs() {
   return (
     <section className="py-16 bg-slate-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Reveal className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <p className="text-blue-600 font-medium text-sm uppercase tracking-wider mb-2">
             The Meridian Difference
@@ -96,7 +97,7 @@ export default function WhyTrustUs() {
             </div>
           ))}
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

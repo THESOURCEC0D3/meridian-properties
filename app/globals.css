@@ -8,7 +8,6 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
-  --font-mono: var(--font-geist-mono, ui-monospace, monospace);
   --font-heading: var(--font-geist-sans, ui-sans-serif, system-ui, sans-serif);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
@@ -46,16 +45,39 @@
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
+  --spacing-nav: var(--nav-height);
 }
 
 :root {
+  /*
+   * Layout token. The navbar height was hardcoded three times — `h-16` on the
+   * nav, `pt-16` on <main>, and `top-16` on the sticky filter bar — with nothing
+   * linking them. Changing the navbar to h-20 silently hid 16px of every page
+   * behind the header, with no error and no warning.
+   */
+  --nav-height: 4rem;
+
   --background: oklch(1 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+
+  /*
+   * The brand blue, as a real token.
+   *
+   * Every token in this file previously had zero chroma — the design system was
+   * entirely greyscale — while every component hardcoded `bg-blue-600`. Two
+   * colour systems that never met. The visible symptom: <Button> with no variant
+   * rendered near-black, so every button that should be blue carried a
+   * `className="bg-blue-600"` override, and CTABanner had to fight the outline
+   * variant with `border-slate-600 text-black`.
+   *
+   * With --primary set to the brand blue, <Button> is blue by default and those
+   * overrides become deletable. Rebranding is now one line instead of 40 files.
+   */
+  --primary: oklch(0.546 0.215 262.9);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -115,6 +137,80 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+}
+
+/*
+ * Motion tokens.
+ *
+ * The audit found four unrelated durations already in use (100/150/200/300ms)
+ * with no shared easing. Section entrances read the same three values below so
+ * every reveal on the site moves with one personality. "Premium" motion is
+ * mostly restraint: a short distance, a long-tailed ease-out, and no bounce.
+ */
+:root {
+  --motion-reveal-duration: 700ms;
+  --motion-reveal-distance: 1.5rem;
+  /* Fast start, very soft landing (an ease-out-quint). */
+  --motion-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--motion-reveal-distance));
+  }
+}
+
+@layer components {
+  /* Scroll-triggered: <Reveal> flips data-revealed when it enters view. */
+  .reveal {
+    opacity: 0;
+    transform: translateY(var(--motion-reveal-distance));
+    transition:
+      opacity var(--motion-reveal-duration) var(--motion-ease-out),
+      transform var(--motion-reveal-duration) var(--motion-ease-out);
+  }
+  .reveal[data-revealed] {
+    opacity: 1;
+    /* `none`, not translateY(0): any transform value makes this element the
+       containing block for fixed-position descendants and a new stacking
+       context. `none` removes both once the animation is done. */
+    transform: none;
+  }
+
+  /*
+   * On-load hero entrance, pure CSS.
+   *
+   * Heroes are above the fold, so waiting for hydration + IntersectionObserver
+   * would leave the headline invisible for however long the JS takes on a slow
+   * phone. A CSS animation starts as soon as the stylesheet applies. Children
+   * cascade in 80ms apart. `backwards` fill hides each child during its delay,
+   * then releases the transform entirely when finished.
+   */
+  .hero-enter > * {
+    animation: rise var(--motion-reveal-duration) var(--motion-ease-out)
+      backwards;
+  }
+  .hero-enter > :nth-child(2) { animation-delay: 80ms; }
+  .hero-enter > :nth-child(3) { animation-delay: 160ms; }
+  .hero-enter > :nth-child(4) { animation-delay: 240ms; }
+  .hero-enter > :nth-child(5) { animation-delay: 320ms; }
+}
+
+/*
+ * Vestibular safety (WCAG 2.3.3). Users who ask the OS for reduced motion get
+ * the content immediately, with no movement and no fade.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal[data-revealed] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .hero-enter > * {
+    animation: none;
+  }
 }
 
 @layer base {

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
-import { Search, SlidersHorizontal, X } from "lucide-react";
+import { Search, SearchX, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -13,103 +13,68 @@ import {
 } from "@/components/ui/select";
 import PropertyCard from "@/components/properties/PropertyCard";
 import { Property } from "@/lib/data/properties";
+import {
+  DEFAULT_FILTERS,
+  FilterState,
+  applyFilters,
+  areas,
+  bedroomOptions,
+  filtersToQueryString,
+  getPriceRanges,
+  propertyTypes,
+  sortOptions,
+} from "@/lib/data/filters";
 
 interface PropertiesClientProps {
   properties: Property[];
+  initialFilters: FilterState;
 }
-
-const propertyTypes = [
-  { value: "all", label: "All Types" },
-  { value: "sale", label: "For Sale" },
-  { value: "let", label: "To Let" },
-  { value: "shortlet", label: "Short Let" },
-];
-
-const areas = [
-  { value: "all", label: "All Areas" },
-  { value: "gra", label: "GRA" },
-  { value: "woji", label: "Woji" },
-  { value: "eliozu", label: "Eliozu" },
-  { value: "ada-george", label: "Ada George" },
-  { value: "trans-amadi", label: "Trans-Amadi" },
-  { value: "rumuola", label: "Rumuola" },
-  { value: "peter-odili", label: "Peter Odili Road" },
-  { value: "eneka", label: "Eneka" },
-];
-
-const priceRanges = {
-  all: [{ value: "all", label: "Any Price" }],
-  sale: [
-    { value: "all", label: "Any Price" },
-    { value: "0-50000000", label: "Under ₦50m" },
-    { value: "50000000-150000000", label: "₦50m — ₦150m" },
-    { value: "150000000-300000000", label: "₦150m — ₦300m" },
-    { value: "300000000-999999999", label: "Above ₦300m" },
-  ],
-  let: [
-    { value: "all", label: "Any Price" },
-    { value: "0-2000000", label: "Under ₦2m/year" },
-    { value: "2000000-5000000", label: "₦2m — ₦5m/year" },
-    { value: "5000000-10000000", label: "₦5m — ₦10m/year" },
-    { value: "10000000-999999999", label: "Above ₦10m/year" },
-  ],
-  shortlet: [
-    { value: "all", label: "Any Price" },
-    { value: "0-85000", label: "Under ₦85k/night" },
-    { value: "85000-120000", label: "₦85k — ₦120k/night" },
-    { value: "120000-999999999", label: "Above ₦120k/night" },
-  ],
-};
 
 export default function PropertiesClient({
   properties,
+  initialFilters,
 }: PropertiesClientProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [selectedType, setSelectedType] = useState("all");
-  const [selectedArea, setSelectedArea] = useState("all");
-  const [selectedPrice, setSelectedPrice] = useState("all");
+  const [filters, setFilters] = useState<FilterState>(initialFilters);
   const [showFilters, setShowFilters] = useState(false);
 
-  const activePriceRanges =
-    selectedType === "all"
-      ? priceRanges.all
-      : priceRanges[selectedType as keyof typeof priceRanges];
+  /**
+   * Applies a filter change and mirrors it into the URL.
+   *
+   * `history.replaceState` is used instead of router navigation so filtering
+   * stays instant — the URL becomes shareable without a server round trip on
+   * every keystroke.
+   */
+  const updateFilters = (patch: Partial<FilterState>) => {
+    const next = { ...filters, ...patch };
+    setFilters(next);
 
-const filteredProperties = useMemo(() => {
-  return properties.filter((property) => {
-    const matchesSearch =
-      searchQuery === "" ||
-      property.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      property.location.toLowerCase().includes(searchQuery.toLowerCase());
-
-    const matchesType =
-      selectedType === "all" || property.type === selectedType;
-
-    const matchesArea =
-      selectedArea === "all" || property.area === selectedArea;
-
-    const matchesPrice = (() => {
-      if (selectedPrice === "all") return true;
-      const [min, max] = selectedPrice.split("-").map(Number);
-      return property.price >= min && property.price <= max;
-    })();
-
-    return matchesSearch && matchesType && matchesArea && matchesPrice;
-  });
-}, [properties, searchQuery, selectedType, selectedArea, selectedPrice]);
-
- const hasActiveFilters =
-   searchQuery !== "" ||
-   selectedType !== "all" ||
-   selectedArea !== "all" ||
-   selectedPrice !== "all";
-
-  const clearFilters = () => {
-    setSearchQuery("");
-    setSelectedType("all");
-    setSelectedArea("all");
-    setSelectedPrice("all");
+    const query = filtersToQueryString(next);
+    window.history.replaceState(
+      null,
+      "",
+      query ? `${window.location.pathname}?${query}` : window.location.pathname,
+    );
   };
+
+  const activePriceRanges = getPriceRanges(filters.type);
+
+  // The predicate itself lives in lib/data/filters so it has a single home.
+  const filteredProperties = useMemo(
+    () => applyFilters(properties, filters),
+    [properties, filters],
+  );
+
+  // Sort is deliberately excluded: it changes presentation, not the result set,
+  // so "Clear filters" should not reset the user's chosen ordering.
+  const hasActiveFilters =
+    filters.query !== "" ||
+    filters.type !== "all" ||
+    filters.area !== "all" ||
+    filters.price !== "all" ||
+    filters.beds !== "all";
+
+  const clearFilters = () =>
+    updateFilters({ ...DEFAULT_FILTERS, sort: filters.sort });
 
   return (
     <div className="min-h-screen bg-slate-50">
@@ -126,26 +91,25 @@ const filteredProperties = useMemo(() => {
       </div>
 
       {/* Filters */}
-      <div className="bg-white border-b border-slate-200 sticky top-16 z-40">
+      <div className="bg-white border-b border-slate-200 sticky top-nav z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           {/* Desktop Filters */}
           <div className="hidden md:flex items-center gap-4">
             <div className="relative flex-1 max-w-sm">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
               <Input
                 placeholder="Search by title or location..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={filters.query}
+                onChange={(e) => updateFilters({ query: e.target.value })}
                 className="pl-9"
               />
             </div>
 
             <Select
-              value={selectedType}
-              onValueChange={(value) => {
-                setSelectedType(value);
-                setSelectedPrice("all");
-              }}
+              value={filters.type}
+              onValueChange={(value) =>
+                updateFilters({ type: value, price: "all" })
+              }
             >
               <SelectTrigger className="w-40">
                 <SelectValue placeholder="Property Type" />
@@ -159,7 +123,10 @@ const filteredProperties = useMemo(() => {
               </SelectContent>
             </Select>
 
-            <Select value={selectedArea} onValueChange={setSelectedArea}>
+            <Select
+              value={filters.area}
+              onValueChange={(value) => updateFilters({ area: value })}
+            >
               <SelectTrigger className="w-44">
                 <SelectValue placeholder="Area" />
               </SelectTrigger>
@@ -173,12 +140,28 @@ const filteredProperties = useMemo(() => {
             </Select>
 
             <Select
-              value={selectedPrice}
-              onValueChange={setSelectedPrice}
-              disabled={selectedType === "all"}
+              value={filters.beds}
+              onValueChange={(value) => updateFilters({ beds: value })}
             >
-              <SelectTrigger className="w-48">
-                {selectedType === "all" ? (
+              <SelectTrigger className="w-32" aria-label="Minimum bedrooms">
+                <SelectValue placeholder="Beds" />
+              </SelectTrigger>
+              <SelectContent>
+                {bedroomOptions.map((option) => (
+                  <SelectItem key={option.value} value={option.value}>
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+
+            <Select
+              value={filters.price}
+              onValueChange={(value) => updateFilters({ price: value })}
+              disabled={filters.type === "all"}
+            >
+              <SelectTrigger className="w-44" aria-label="Price range">
+                {filters.type === "all" ? (
                   <span className="text-muted-foreground">
                     Select a type first
                   </span>
@@ -198,12 +181,11 @@ const filteredProperties = useMemo(() => {
             {hasActiveFilters && (
               <Button
                 variant="ghost"
-                size="sm"
                 onClick={clearFilters}
-                className="gap-2 text-slate-500 hover:text-slate-900"
+                className="gap-2 text-slate-600 hover:text-slate-900 shrink-0"
               >
-                <X className="w-4 h-4" />
-                Clear Filters
+                <X className="w-4 h-4" aria-hidden="true" />
+                Clear
               </Button>
             )}
           </div>
@@ -211,11 +193,11 @@ const filteredProperties = useMemo(() => {
           {/* Mobile Filters Toggle */}
           <div className="flex md:hidden items-center justify-between gap-4">
             <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
               <Input
                 placeholder="Search properties..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
+                value={filters.query}
+                onChange={(e) => updateFilters({ query: e.target.value })}
                 className="pl-9"
               />
             </div>
@@ -239,11 +221,10 @@ const filteredProperties = useMemo(() => {
           {showFilters && (
             <div className="md:hidden mt-4 pt-4 border-t border-slate-200 flex flex-col gap-3">
               <Select
-                value={selectedType}
-                onValueChange={(value) => {
-                  setSelectedType(value);
-                  setSelectedPrice("all");
-                }}
+                value={filters.type}
+                onValueChange={(value) =>
+                  updateFilters({ type: value, price: "all" })
+                }
               >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Property Type" />
@@ -257,7 +238,10 @@ const filteredProperties = useMemo(() => {
                 </SelectContent>
               </Select>
 
-              <Select value={selectedArea} onValueChange={setSelectedArea}>
+              <Select
+                value={filters.area}
+                onValueChange={(value) => updateFilters({ area: value })}
+              >
                 <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select Area" />
                 </SelectTrigger>
@@ -271,12 +255,28 @@ const filteredProperties = useMemo(() => {
               </Select>
 
               <Select
-                value={selectedPrice}
-                onValueChange={setSelectedPrice}
-                disabled={selectedType === "all"}
+                value={filters.beds}
+                onValueChange={(value) => updateFilters({ beds: value })}
               >
-                <SelectTrigger className="w-full">
-                  {selectedType === "all" ? (
+                <SelectTrigger className="w-full" aria-label="Minimum bedrooms">
+                  <SelectValue placeholder="Beds" />
+                </SelectTrigger>
+                <SelectContent>
+                  {bedroomOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select
+                value={filters.price}
+                onValueChange={(value) => updateFilters({ price: value })}
+                disabled={filters.type === "all"}
+              >
+                <SelectTrigger className="w-full" aria-label="Price range">
+                  {filters.type === "all" ? (
                     <span className="text-muted-foreground">
                       Select a type first
                     </span>
@@ -288,6 +288,22 @@ const filteredProperties = useMemo(() => {
                   {activePriceRanges.map((range) => (
                     <SelectItem key={range.value} value={range.value}>
                       {range.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+
+              <Select
+                value={filters.sort}
+                onValueChange={(value) => updateFilters({ sort: value })}
+              >
+                <SelectTrigger className="w-full" aria-label="Sort results">
+                  <SelectValue placeholder="Sort" />
+                </SelectTrigger>
+                <SelectContent>
+                  {sortOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -311,9 +327,11 @@ const filteredProperties = useMemo(() => {
 
       {/* Results */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        {/* Results Count */}
-        <div className="flex items-center justify-between mb-6">
-          <p className="text-slate-600 text-sm">
+        {/* Results Count + sort */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+          {/* aria-live announces the new count when a filter changes. Without it
+              a screen reader user gets no feedback that filtering did anything. */}
+          <p className="text-slate-700 text-sm" aria-live="polite">
             Showing{" "}
             <span className="font-semibold text-slate-900">
               {filteredProperties.length}
@@ -321,30 +339,66 @@ const filteredProperties = useMemo(() => {
             {filteredProperties.length === 1 ? "property" : "properties"}
             {hasActiveFilters && " matching your search"}
           </p>
-          {hasActiveFilters && (
-            <button
-              onClick={clearFilters}
-              className="text-blue-600 text-sm hover:underline"
-            >
-              Clear filters
-            </button>
-          )}
+
+          <div className="flex items-center gap-3">
+            {hasActiveFilters && (
+              <button
+                onClick={clearFilters}
+                className="text-blue-700 text-sm hover:underline rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-600 focus-visible:ring-offset-2"
+              >
+                Clear filters
+              </button>
+            )}
+            <div className="hidden md:flex items-center gap-2">
+              <label
+                htmlFor="sort-results"
+                className="text-sm text-slate-700 shrink-0"
+              >
+                Sort by
+              </label>
+              <Select
+                value={filters.sort}
+                onValueChange={(value) => updateFilters({ sort: value })}
+              >
+                <SelectTrigger id="sort-results" className="w-44">
+                  <SelectValue placeholder="Sort" />
+                </SelectTrigger>
+                <SelectContent>
+                  {sortOptions.map((option) => (
+                    <SelectItem key={option.value} value={option.value}>
+                      {option.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          </div>
         </div>
 
         {/* Property Grid */}
         {filteredProperties.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          // A list, so screen readers announce "list, 12 items" and users know
+          // how much is here before reading through it. Bullets removed visually;
+          // the semantics are what matter.
+          <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 list-none">
             {filteredProperties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+              <li key={property.id}>
+                <PropertyCard property={property} />
+              </li>
             ))}
-          </div>
+          </ul>
         ) : (
           <div className="text-center py-20">
-            <div className="text-5xl mb-4">🏠</div>
+            {/* lucide rather than a 🏠 emoji: emoji render differently per OS,
+                cannot be colour-matched, and are read aloud by screen readers. */}
+            <SearchX
+              className="w-12 h-12 text-slate-400 mx-auto mb-4"
+              aria-hidden="true"
+            />
             <h3 className="text-xl font-semibold text-slate-900 mb-2">
               No properties found
             </h3>
-            <p className="text-slate-500 mb-6">
+            <p className="text-slate-600 mb-6">
               No properties match your current search. Try adjusting your
               filters.
             </p>
